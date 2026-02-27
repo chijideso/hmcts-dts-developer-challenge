@@ -1,73 +1,69 @@
-# React + TypeScript + Vite
+## Overview
+The HMCTS Case Manager is a streamlined internal dashboard designed for legal professionals to register, track, and manage active court cases.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The application solves the problem of "data fragmentation" by providing a centralized Active Case Registry. It features a "Full-Screen" layout that prioritizes the case list while keeping registration tools within reach. The UI is built to be "responsive-first," meaning it works just as well on a courtroom tablet as it does on a dual-monitor desktop setup
 
-Currently, two official plugins are available:
+## Tech Stack & Libraries
+Frontend: React 18+ TypeScript
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+UI Framework: Mantine UI v7 (with PostCSS)
 
-## React Compiler
+State Management: Redux Toolkit (RTK) – Managing the global case registry state.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Icons: Tabler Icons
 
-## Expanding the ESLint configuration
+Build Tool: Vite
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Installation Process
+Follow these steps to set up your local development environment.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 1. Prerequisites
+Ensure you have Node.js (v18+) installed. You can check by running:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Bash
+node -v
+### 2. Clone the Repository
+Bash
+git clone https://github.com/your-username/hmcts-case-manager.git
+cd hmcts-case-manager
+3. Install Dependencies
+This will install Mantine, Redux Toolkit, and all necessary styling plugins.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Bash
+npm install
+4. Project Structure Overview
+Before you start coding, here is where the main logic lives:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+src/store/: Redux store configuration and caseSlice.js.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+src/Features/Components/: Contains the CaseForm and CaseList (the table).
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+src/App.jsx: The main layout using Mantine's AppShell.
+
+### 5. Start the Development Server
+Bash
+npm run dev
+The app will be available at http://localhost:5173.
+
+## Application Architecture
+State Management (Redux)
+The app uses a centralized Redux store to handle data flow. When a user adds or edits a case:
+
+Dispatch: An action is dispatched (e.g., addCase or updateCase).
+
+Reducer: The Redux slice updates the global items array.
+
+Selector: The CaseList table automatically re-renders to show the new data.
+
+Responsive Layout
+We use a Fluid Flexbox strategy:
+
+Desktop: The Form (400px) and Table (flexible) sit side-by-side.
+
+Mobile: The layout automatically stacks vertically to ensure the table remains readable.
+
+Modals: All "Edit" actions are handled via a centralized Mantine Modal to keep the interface clean.
+## Common ScriptsCommandAction
+npm run devStarts the local dev server with Hot Module Replacement.
+npm run buildCompiles and minifies the app for production.
+npm run previewLocally preview the production build.
