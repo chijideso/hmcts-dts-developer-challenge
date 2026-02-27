@@ -24,7 +24,7 @@ Bash
 node -v
 ### 2. Clone the Repository
 Bash
-git clone https://github.com/your-username/hmcts-case-manager.git
+git clone https://github.com/chijideso/hmcts-dts-developer-challenge.git
 cd hmcts-case-manager
 3. Install Dependencies
 This will install Mantine, Redux Toolkit, and all necessary styling plugins.
